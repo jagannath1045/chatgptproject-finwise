@@ -23,9 +23,9 @@ const demoProfile: Profile = {
 };
 
 export function useAuth() {
-  const [user, setUser] = useState<User | null>(demoUser);
-  const [profile, setProfile] = useState<Profile | null>(demoProfile);
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [loading, setLoading] = useState(true);
 
   const fetchProfile = useCallback(async (userId: string) => {
     try {
@@ -50,10 +50,11 @@ export function useAuth() {
   }, []);
 
   useEffect(() => {
-    // Keep the public Vercel demo useful before Supabase credentials are added.
+    // Keep the login screen available in a fresh Vercel deployment. A user can
+    // still enter demo mode by submitting the sign-in form when Supabase is not configured.
     if (!hasSupabaseConfig) {
-      setUser(demoUser);
-      setProfile(demoProfile);
+      setUser(null);
+      setProfile(null);
       setLoading(false);
       return;
     }
@@ -68,14 +69,14 @@ export function useAuth() {
           if (mounted) setLoading(false);
         });
       } else {
-        setUser(demoUser);
-        setProfile(demoProfile);
+        setUser(null);
+        setProfile(null);
         setLoading(false);
       }
     }).catch(() => {
       if (mounted) {
-        setUser(demoUser);
-        setProfile(demoProfile);
+        setUser(null);
+        setProfile(null);
         setLoading(false);
       }
     });
@@ -85,8 +86,8 @@ export function useAuth() {
         setUser(session.user);
         fetchProfile(session.user.id);
       } else {
-        setUser(demoUser);
-        setProfile(demoProfile);
+        setUser(null);
+        setProfile(null);
       }
       setLoading(false);
     });

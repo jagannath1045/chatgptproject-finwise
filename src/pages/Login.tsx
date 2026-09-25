@@ -128,6 +128,13 @@ export default function Login() {
             </button>
           </form>
 
+          <Link
+            to="/forgot-password"
+            className="mt-4 w-full rounded-xl border border-teal-200 bg-teal-50 px-4 py-3 text-center text-sm font-bold text-teal-800 transition-colors hover:bg-teal-100 block"
+          >
+            Forgot your password? Reset it securely
+          </Link>
+
           <p className="text-center text-sm text-gray-500 mt-6">
             Don't have an account?{" "}
             <Link to="/signup" className="text-teal-600 font-medium hover:text-teal-700 transition-colors">
